@@ -72,3 +72,27 @@ the logged-in user. This shows an inconsistency: the GET endpoint
 trusts the ID in the URL, but the POST endpoint validates it.
 
 **Screenshot:** ![Basket write blocked](screenshots/basket-write-blocked.png)
+
+
+## Attack 3: SQL injection via search bar — full user data dump
+
+**Threat model rank:** 3 (SQL injection, App → Database) and
+4 (Information disclosure, App → Database)
+
+**What I did:**
+Sent a search request to /rest/products/search with the query:
+')) UNION SELECT id, email, password, '4', '5', '6', '7', '8', '9' FROM Users--
+(URL-encoded before sending)
+
+**What happened:**
+Received a 200 response containing the full Users table — every
+account's email address and password hash — disguised as product
+entries. Confirmed accounts include admin@juice-sh.op,
+ciso@juice-sh.op, support@juice-sh.op, and 40+ others. This is a
+complete, unauthenticated database dump through a public search
+feature, with no login required at all.
+
+**Severity:** Critical. This exposes every user's credentials in
+one request, with no authentication or rate limiting observed.
+
+**Screenshot:** ![SQL injection user dump](screenshots/sqli-user-dump.png)
