@@ -34,7 +34,7 @@ path.
 **Screenshot:** ![Admin section blocked](screenshots/admin-section-blocked.png)
 
 
-## Attack 2: Viewing another user's basket (IDOR)
+## Attack 2a: Viewing another user's basket (IDOR)
 
 **Threat model rank:** 2 (Elevation of privilege, Browser → App)
 
@@ -53,3 +53,22 @@ Reference (IDOR): the app trusts the ID in the URL without
 checking it belongs to the logged-in user.
 
 **Screenshot:** ![Basket IDOR](screenshots/basket-idor.png)
+
+
+## Attack 2b: Attempting to modify another user's basket
+
+**Threat model rank:** 2 (Elevation of privilege, Browser → App)
+
+**What I did:**
+Sent a POST to /api/BasketItems with
+{"ProductId":2,"BasketId":"1","quantity":1} — attempting to add
+an item to basket ID 1, which belongs to another user (not mine,
+ID 6).
+
+**What happened:**
+Received 401 Unauthorized: {"error":"Invalid BasketId"}. Unlike
+viewing the basket (Attack 2), writing to it is checked against
+the logged-in user. This shows an inconsistency: the GET endpoint
+trusts the ID in the URL, but the POST endpoint validates it.
+
+**Screenshot:** ![Basket write blocked](screenshots/basket-write-blocked.png)
