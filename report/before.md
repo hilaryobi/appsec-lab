@@ -32,3 +32,24 @@ appears to be mitigated here — no fix needed for this specific
 path.
 
 **Screenshot:** ![Admin section blocked](screenshots/admin-section-blocked.png)
+
+
+## Attack 2: Viewing another user's basket (IDOR)
+
+**Threat model rank:** 2 (Elevation of privilege, Browser → App)
+
+**What I did:**
+Logged in as my test account (basket ID 6). Sent a GET request
+for /rest/basket/6 to Repeater to confirm it returned my own
+items, then changed the URL to /rest/basket/1 and sent it again.
+
+**What happened:**
+Received a 200 response with full basket contents belonging to
+UserId 1 (likely the first account created, often the admin) —
+Apple Juice, Orange Juice, and Eggfruit Juice with quantities and
+timestamps. No authorization check prevented me from viewing a
+basket that isn't mine. This is an Insecure Direct Object
+Reference (IDOR): the app trusts the ID in the URL without
+checking it belongs to the logged-in user.
+
+**Screenshot:** ![Basket IDOR](screenshots/basket-idor.png)
