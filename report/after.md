@@ -47,3 +47,24 @@ Before: 200 OK, returned full Users table (emails + password hashes)
 After: 200 OK, data: [] — no injection, no data leaked
 
 **Status:** Fixed and verified.
+
+
+## Fix 3: Basket IDOR (ownership check)
+
+**Original finding:** Attack 2 — viewing another user's basket by changing the URL ID
+
+**Fix applied:**
+Changed routes/basket.ts so the server checks the logged-in
+user's own basket ID (`user.bid`) against the requested ID before
+fetching anything. If they don't match, the server returns 403
+and never queries the database for that basket.
+
+**Re-test result:**
+Requested /rest/basket/1 while logged in as a user whose own
+basket is 6.
+Before: 200 OK, returned basket 1's full contents
+After: 403 Forbidden, "You are not authorized to view this basket."
+
+Confirmed own basket (/rest/basket/6) still loads normally.
+
+**Status:** Fixed and verified.
