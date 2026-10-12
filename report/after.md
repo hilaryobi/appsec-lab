@@ -21,6 +21,7 @@ Before: 200 OK, returned admin token
 After: 401 Unauthorized, "Invalid email or password."
 
 **Status:** Fixed and verified.
+https://github.com/hilaryobi/juice-shop/commit/23f258f669f98b8a3936f6e6815e98e2f1d9ac44
 
 
 ## Fix 2: Search bar SQL injection (parameterized query)
