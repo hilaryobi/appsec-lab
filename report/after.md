@@ -48,6 +48,7 @@ Before: 200 OK, returned full Users table (emails + password hashes)
 After: 200 OK, data: [] — no injection, no data leaked
 
 **Status:** Fixed and verified.
+https://github.com/hilaryobi/juice-shop/commit/32a814a52583edc40d2332224b8e3e0419547a06
 
 
 ## Fix 3: Basket IDOR (ownership check)
