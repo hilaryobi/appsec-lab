@@ -54,7 +54,7 @@ Each vulnerability was fixed at the code level (parameterized queries, ownership
 |---|---|
 | Parameterized login query | https://github.com/hilaryobi/juice-shop/commit/23f258f669f98b8a3936f6e6815e98e2f1d9ac44 |
 | Parameterized search query | https://github.com/hilaryobi/juice-shop/commit/32a814a52583edc40d2332224b8e3e0419547a06 |
-| Basket ownership check (IDOR fix) | [link] |
+| Basket ownership check (IDOR fix) | https://github.com/hilaryobi/juice-shop/commit/5afa25c5c0e892044fab6c176341e5367d50a844 |
 
 📄 [`reports/after.md`](reports/after.md)
 
