@@ -1,5 +1,7 @@
 ## Fix 1: Login SQL injection (parameterized query)
 
+**Commit:** https://github.com/hilaryobi/juice-shop/commit/23f258f669f98b8a3936f6e6815e98e2f1d9ac44
+
 **Original finding:** Attack 1 — login bypass via SQL injection
 
 **Fix applied:**
@@ -21,10 +23,11 @@ Before: 200 OK, returned admin token
 After: 401 Unauthorized, "Invalid email or password."
 
 **Status:** Fixed and verified.
-https://github.com/hilaryobi/juice-shop/commit/23f258f669f98b8a3936f6e6815e98e2f1d9ac44
 
 
 ## Fix 2: Search bar SQL injection (parameterized query)
+
+**Commit:** https://github.com/hilaryobi/juice-shop/commit/32a814a52583edc40d2332224b8e3e0419547a06
 
 **Original finding:** Attack 3 — SQL injection via search bar, full user data dump
 
@@ -48,10 +51,12 @@ Before: 200 OK, returned full Users table (emails + password hashes)
 After: 200 OK, data: [] — no injection, no data leaked
 
 **Status:** Fixed and verified.
-https://github.com/hilaryobi/juice-shop/commit/32a814a52583edc40d2332224b8e3e0419547a06
+
 
 
 ## Fix 3: Basket IDOR (ownership check)
+
+**Commit:** https://github.com/hilaryobi/juice-shop/commit/5afa25c5c0e892044fab6c176341e5367d50a844
 
 **Original finding:** Attack 2 — viewing another user's basket by changing the URL ID
 
